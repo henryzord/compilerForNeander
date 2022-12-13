@@ -17,11 +17,14 @@ int main(int argc, char **argv) {
     }
     int n_lines = count_lines(file_contents);
     printf("o documento possui %d linhas\n", n_lines);
+    printf("----------------------------\n");
+    printf("O conteúdo do documento é:\n");
+    printf("----------------------------\n");
     for(int i = 0; i < n_lines; i++) {
-        printf("%s\n", get_line(file_contents, i));
+        char *line = get_line(file_contents, i);
+        printf("%s\n", line);
+        free(line);
     }
-
     free(file_contents);
-
     return 0;
 }

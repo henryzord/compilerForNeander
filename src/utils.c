@@ -46,3 +46,50 @@ char *read_file(char *address) {
     fclose(file_pointer);
     return file_contents;
 }
+
+int count_lines(char *file_contents) {
+    char *ptr = file_contents;
+    int n_lines = 0;
+    while(*ptr != '\0') {
+        if(*ptr == '\n') {
+            n_lines += 1;
+        }
+        ptr++;
+    }
+    return n_lines + 1;
+}
+
+char *get_line(char *file_contents, int line) {
+    int n_lines = count_lines(file_contents);
+    if(line < 0 || line >= n_lines) {
+        fprintf(stderr, "A linha solicitada deve estar entre 0 <= line < n_lines!");
+        return NULL;
+    }
+    char *ptr = file_contents;
+    int cur_line = 0;
+    while(*ptr != '\0') {
+        if(cur_line == line) {
+            break;
+        }
+        if(*ptr == '\n') {
+            cur_line += 1;
+        }
+        ptr++;
+    }
+    int line_size = 0;
+    char *previous_ptr = ptr;
+    while((*ptr != '\n') && (*ptr != '\0')) {
+        line_size += 1;
+        ptr++;
+    }
+    ptr = previous_ptr;
+    char *buffer = (char*)malloc(sizeof(char) * (line_size + 1));
+    char *previous_buffer = buffer;
+    while((*ptr != '\n') && (*ptr != '\0')) {
+        *buffer = *ptr;
+        buffer++;
+        ptr++;
+    }
+    *buffer = '\0';
+    return previous_buffer;
+}

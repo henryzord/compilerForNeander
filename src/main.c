@@ -15,25 +15,12 @@ int main(int argc, char **argv) {
     if(file_contents == NULL) {
         return 1;
     }
-    char *ptr = file_contents;
-
-    int hit = 0;
-    while(*ptr != '\0') {
-        int length = 0;
-        char *previous = ptr;
-        while((*ptr != '\n') && (*ptr != '\0')) {
-            length += 1;
-            ptr++;
-        }
-        printf("comprimento = %02d: ", length);
-        while((*previous != '\n' && (*previous != '\0'))) {
-            printf("%c", *previous);
-            previous++;
-        }
-        printf("\n");
-        ptr++;
-        hit++;
+    int n_lines = count_lines(file_contents);
+    printf("o documento possui %d linhas\n", n_lines);
+    for(int i = 0; i < n_lines; i++) {
+        printf("%s\n", get_line(file_contents, i));
     }
+
     free(file_contents);
 
     return 0;

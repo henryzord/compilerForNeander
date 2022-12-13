@@ -8,6 +8,6 @@ set(CMAKE_C_STANDARD 23)
 
 include_directories(include)
 
-add_executable(compiler src/main.c include/definitions.h)
+add_executable(compiler src/main.c include/utils.h src/utils.c)
 
 

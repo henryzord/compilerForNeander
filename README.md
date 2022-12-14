@@ -33,26 +33,30 @@ Abaixo segue uma listagem das instruções em C que podem ser convertidas para N
 atribuída caso você as implemente no seu trabalho. Tenha em mente que a nota deste trabalho é 10, portanto, mesmo que 
 você implemente todos os itens da lista, a nota não ultrapassará este valor.
 
-| Nota       | Descrição                                                     | Exemplo em C                                                     | Instruções necessárias no Neander-X             |
-|:-----------|:--------------------------------------------------------------|:-----------------------------------------------------------------|:------------------------------------------------|
-| **1 pt**   | Definição de variáveis                                        | `int a;`                                                         | `EQU`                                           |
-| **1 pt**   | Atribuição de valores                                         | `a = 1;`                                                         | `LDI`, `STA`                                    |
-| **1 pt**   | Definição e atribuição ao mesmo tempo                         | `int a = 1;`                                                     | `EQU`, `LDI`, `STA`                             |
-| **1 pt**   | Impressão na tela                                             | `printf("%d", c);`                                               | `LDA`, `OUT 0`                                  |
-| **1 pt**   | Captura de entrada                                            | `scanf("%d", &d);`                                               | `IN 0`, `STA`                                   |
-| **1 pt**   | Término do programa                                           | `return 0;`                                                      | `HLT`                                           |
-| **1 pt**   | Definição e soma entre variáveis                              | `int c = a + b;`                                                 | `EQU`, `LDA`, `ADD`, `STA`                      |
-| **1 pt**   | Definição e soma entre variável e constante                   | `int c = a + 1;`                                                 | `EQU`, `LDI`, `ADD`, `STA`                      |
-| **1 pt**   | Soma entre variáveis                                          | `c = a + b;`                                                     | `LDA`, `ADD`, `STA`                             |
-| **1 pt**   | Soma entre variável e constante                               | `c = a + 1;`                                                     | `LDI`, `ADD`, `STA`                             |
-| **1 pt**   | Definição e subtração entre variáveis                         | `int c = a - b;`                                                 | `EQU`, `LDA`, `SUB`, `STA`                      |
-| **1.5 pt** | Definição e subtração entre variável e constante (dois lados) | `int c = a - 1;`<br>`int c = 1 - a;`                             | `EQU`, `LDI`, `STA`, `LDA`, `SUB`               |
-| **1 pt**   | Subtração entre variáveis                                     | `c = a - b;`                                                     | `LDA`, `STA`, `SUB`                             |
-| **1.5 pt** | Subtração entre variável e constante (dois lados)             | `c = a - 1;`<br>`c = 1 - a;`                                     | `EQU`, `LDI`, `STA`, `LDA`, `SUB`               |
-| **5 pts**  | Multiplicação (qualquer configuração)                         | `int c = a * b;`<br>`c = a * b;`<br>`c = a * 3;`<br>`c = 3 * 2;` | `EQU`, `STA`, `LDA`, `LDI`, `JMP`, `SUB`, `JNZ` |
+| Nota       | Descrição                                                     | Exemplo em C                                                                          | Instruções necessárias no Neander-X             |
+|:-----------|:--------------------------------------------------------------|:--------------------------------------------------------------------------------------|:------------------------------------------------|
+| **1 pt**   | Definição de variáveis                                        | `int a;`                                                                              | `EQU`                                           |
+| **1 pt**   | Atribuição de valores                                         | `a = 1;`                                                                              | `LDI`, `STA`                                    |
+| **1 pt**   | Definição e atribuição ao mesmo tempo                         | `int a = 1;`                                                                          | `EQU`, `LDI`, `STA`                             |
+| **1 pt**   | Impressão na tela                                             | `printf("%d", c);`                                                                    | `LDA`, `OUT 0`                                  |
+| **1 pt**   | Captura de entrada                                            | `scanf("%d", &d);`                                                                    | `IN 0`, `STA`                                   |
+| **1 pt**   | Término do programa                                           | `return 0;`                                                                           | `HLT`                                           |
+| **1 pt**   | Definição e soma entre variáveis                              | `int c = a + b;`                                                                      | `EQU`, `LDA`, `ADD`, `STA`                      |
+| **1 pt**   | Definição e soma entre variável e constante                   | `int c = a + 1;`                                                                      | `EQU`, `LDI`, `ADD`, `STA`                      |
+| **1 pt**   | Soma entre variáveis                                          | `c = a + b;`                                                                          | `LDA`, `ADD`, `STA`                             |
+| **1 pt**   | Soma entre variável e constante                               | `c = a + 1;`                                                                          | `LDI`, `ADD`, `STA`                             |
+| **1 pt**   | Definição e subtração entre variáveis                         | `int c = a - b;`                                                                      | `EQU`, `LDA`, `SUB`, `STA`                      |
+| **1.5 pt** | Definição e subtração entre variável e constante (dois lados) | `int c = a - 1;` **e**<br>`int c = 1 - a;`                                            | `EQU`, `LDI`, `STA`, `LDA`, `SUB`               |
+| **1 pt**   | Subtração entre variáveis                                     | `c = a - b;`                                                                          | `LDA`, `STA`, `SUB`                             |
+| **1.5 pt** | Subtração entre variável e constante (dois lados)             | `c = a - 1;` **e**<br>`c = 1 - a;`                                                    | `EQU`, `LDI`, `STA`, `LDA`, `SUB`               |
+| **5 pts**  | Multiplicação (qualquer configuração)                         | `int c = a * b;` **ou**<br>`c = a * b;` **ou**<br>`c = a * 3;` **ou**<br>`c = 3 * 2;` | `EQU`, `STA`, `LDA`, `LDI`, `JMP`, `SUB`, `JNZ` |
 
 
 ## Código-fonte de apoio
 
+É disponibilizado um código-fonte de apoio, escrito em C. Portanto, o compilador que converte um arquivo escrito na 
+linguagem de programação C para Neander-X também é escrito em C.
+
 Você pode consultar o código-fonte disponível nos arquivos [include/utils.h](include/utils.h) e [src/main.c](src/main.c).
+Desenvolva seu código-fonte no arquivo [src/main.c](src/main.c).
 

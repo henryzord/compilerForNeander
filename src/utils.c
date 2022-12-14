@@ -1,11 +1,16 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 #include "utils.h"
 
 
 #define BUFFER_SIZE 100
 
+/**
+ * Dada uma string para um arquivo (e.g. C:\Users\aluno\input.c), calcula quantos caracteres o arquivo tem
+ *
+ * @param address Caminho para um arquivo no computador, por exemplo C:\Users\aluno\input.c
+ * @return O número de caracteres do arquivo, +1 para o caractere terminador
+ */
 int count_characters(char *address) {
     char buffer[BUFFER_SIZE];
     int count = 0;
@@ -14,18 +19,29 @@ int count_characters(char *address) {
     if (file_pointer == NULL) {
         fprintf(
                 stderr,
-                "Não foi possível abrir o arquivo!"
+                "Nao foi possivel abrir o arquivo!"
         );
         return -1;
     }
-
     while(fgets(buffer, BUFFER_SIZE, file_pointer) != NULL) {
-        count += (int)strlen(buffer) + 1;  // +1 para o \0 do fim da string
+        char *ptr = &buffer[0];
+        while((*ptr != '\0') && (*ptr != '\n')) {
+            count += 1;
+            ptr++;
+        }
+        count += 1;
+        // count += (int)strlen(buffer) + 1;  // +1 para o \0 do fim da string
     }
     fclose(file_pointer);
     return count;
 }
 
+/**
+ * Dada uma string para um arquivo (e.g. C:\Users\aluno\input.c), retorna uma string com o conteúdo do arquivo
+ *
+ * @param address Caminho para um arquivo no computador, por exemplo C:\Users\aluno\input.c
+ * @return O conteúdo do arquivo como uma string dinamicamente alocada
+ */
 char *read_file(char *address) {
     int size = count_characters(address);
     if(size == -1) {
@@ -34,19 +50,28 @@ char *read_file(char *address) {
 
     char buffer[BUFFER_SIZE];
     char *file_contents = (char*)malloc(sizeof(char) * size);
-    char *ptr = file_contents;
+    char *copy = file_contents;
     FILE *file_pointer = fopen(address , "r");
 
     while(fgets(buffer, BUFFER_SIZE, file_pointer) != NULL) {
-        for(int i = 0; buffer[i] != '\0'; i++) {
-            *ptr = buffer[i];
+        char *ptr = &buffer[0];
+        while(*ptr != '\0') {
+            *copy = *ptr;
             ptr++;
+            copy++;
         }
     }
+    *copy = '\0';
     fclose(file_pointer);
     return file_contents;
 }
 
+/**
+ * Conta quantas linhas uma string possui. Em outras palavras, conta o número de caracteres '\n' e adiciona 1
+ *
+ * @param file_contents Uma string
+ * @return O número de linhas da string + 1
+ */
 int count_lines(char *file_contents) {
     char *ptr = file_contents;
     int n_lines = 0;
@@ -59,6 +84,13 @@ int count_lines(char *file_contents) {
     return n_lines + 1;
 }
 
+/**
+ * Retorna uma determinada linha em uma string. Começa a contar a partir do zero
+ *
+ * @param file_contents Uma string
+ * @param line A linha a ser retornada, dentro desta string. A contagem começa a partir de zero
+ * @return A linha solicitada
+ */
 char *get_line(char *file_contents, int line) {
     int n_lines = count_lines(file_contents);
     if(line < 0 || line >= n_lines) {

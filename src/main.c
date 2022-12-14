@@ -32,10 +32,10 @@ char *compile(char *file_contents) {
 }
 
 int main(int argc, char **argv) {
-    if(argc != 2) {
+    if(argc != 3) {
         fprintf(
             stderr,
-            "Uso deste programa (pela linha de comando):\n\tcompiler <arquivo_a_ser_processado>"
+            "Uso deste programa (pela linha de comando):\n\tcompiler <arquivo_c> <arquivo_neander>"
         );
         return 0;
     }
@@ -64,6 +64,7 @@ int main(int argc, char **argv) {
         printf("%s\n", line);
         free(line);
     }
+    write_file(argv[2], neander_code);
     free(c_code);
     free(neander_code);
     return 0;

@@ -19,7 +19,7 @@ int count_characters(char *address) {
     if (file_pointer == NULL) {
         fprintf(
                 stderr,
-                "Nao foi possivel abrir o arquivo!"
+                "Nao foi possivel abrir o arquivo para leitura!"
         );
         return -1;
     }
@@ -34,6 +34,33 @@ int count_characters(char *address) {
     }
     fclose(file_pointer);
     return count;
+}
+
+/**
+ * Escreve uma string em um arquivo.
+ *
+ * @param destination O caminho do arquivo a ser escrito, por exemplo C:\Users\aluno\neander.asm
+ * @param file_contents A string a ser escrita
+ * @return 0 se tudo correr normalmente, -1 se ocorrer um erro
+ */
+int write_file(char *destination, char *file_contents) {
+    FILE *fptr = fopen(destination,"w");
+
+    if(fptr == NULL) {
+        fprintf(
+                stderr,
+                "Nao foi possivel abrir o arquivo para escrita!"
+        );
+        return -1;
+    }
+    int n_lines = count_lines(file_contents);
+    for(int i = 0; i < n_lines; i++) {
+        char *line = get_line(file_contents, i);
+        fprintf(fptr,"%s\n", line);
+        free(line);
+    }
+    fclose(fptr);
+    return 0;
 }
 
 /**

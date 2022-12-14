@@ -6,9 +6,9 @@
 #define BUFFER_SIZE 100
 
 /**
- * Dada uma string para um arquivo (e.g. C:\Users\aluno\input.c), calcula quantos caracteres o arquivo tem
+ * Dada uma string para um arquivo (e.g. C:\\Users\\aluno\\input.c), calcula quantos caracteres o arquivo tem
  *
- * @param address Caminho para um arquivo no computador, por exemplo C:\Users\aluno\input.c
+ * @param address Caminho para um arquivo no computador, por exemplo C:\\Users\\aluno\\input.c
  * @return O número de caracteres do arquivo, +1 para o caractere terminador
  */
 int count_characters(char *address) {
@@ -36,13 +36,6 @@ int count_characters(char *address) {
     return count;
 }
 
-/**
- * Escreve uma string em um arquivo.
- *
- * @param destination O caminho do arquivo a ser escrito, por exemplo C:\Users\aluno\neander.asm
- * @param file_contents A string a ser escrita
- * @return 0 se tudo correr normalmente, -1 se ocorrer um erro
- */
 int write_file(char *destination, char *file_contents) {
     FILE *fptr = fopen(destination,"w");
 
@@ -63,12 +56,6 @@ int write_file(char *destination, char *file_contents) {
     return 0;
 }
 
-/**
- * Dada uma string para um arquivo (e.g. C:\Users\aluno\input.c), retorna uma string com o conteúdo do arquivo
- *
- * @param address Caminho para um arquivo no computador, por exemplo C:\Users\aluno\input.c
- * @return O conteúdo do arquivo como uma string dinamicamente alocada
- */
 char *read_file(char *address) {
     int size = count_characters(address);
     if(size == -1) {
@@ -93,12 +80,6 @@ char *read_file(char *address) {
     return file_contents;
 }
 
-/**
- * Conta quantas linhas uma string possui. Em outras palavras, conta o número de caracteres '\n' e adiciona 1
- *
- * @param file_contents Uma string
- * @return O número de linhas da string + 1
- */
 int count_lines(char *file_contents) {
     char *ptr = file_contents;
     int n_lines = 0;
@@ -111,13 +92,6 @@ int count_lines(char *file_contents) {
     return n_lines + 1;
 }
 
-/**
- * Retorna uma determinada linha em uma string. Começa a contar a partir do zero
- *
- * @param file_contents Uma string
- * @param line A linha a ser retornada, dentro desta string. A contagem começa a partir de zero
- * @return A linha solicitada
- */
 char *get_line(char *file_contents, int line) {
     int n_lines = count_lines(file_contents);
     if(line < 0 || line >= n_lines) {

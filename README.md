@@ -60,3 +60,31 @@ linguagem de programação C para Neander-X também é escrito em C.
 Você pode consultar o código-fonte disponível nos arquivos [include/utils.h](include/utils.h) e [src/main.c](src/main.c).
 Desenvolva seu código-fonte no arquivo [src/main.c](src/main.c).
 
+### Executando pelo Code::blocks
+
+Abra o arquivo [compilerForNeander.cbp](compilerForNeander.cbp) pelo Code::blocks, selecione o arquivo [src/main.c](src/main.c),
+selecione a função `main` no seletor <img src="imagens/target.png">, e clique em compilar e executar 
+(botão <img src="imagens/compilar_e_executar.png"> ou nos menus **Build > Build and Run**). 
+
+Se a seguinte janela aparecer para você:
+
+![img.png](imagens/output.png)
+
+Será necessário configurar qual o arquivo de entrada e saída do programa (estes parâmetros são passados pela linha de 
+comando. Para fazer isso, acesse o menu **Project > Set programs' arguments...**. Na janela que abrir,
+escreva o caminho relativo para os arquivos desejados, por exemplo:
+
+![img.png](imagens/variáveis.png)
+
+Após fazer isso, compile novamente o programa com <img src="imagens/compilar_e_executar.png"> ou nos menus **Build > 
+Build and Run** para ver a saída do programa:
+
+![img.png](imagens/saida_correta.png)
+
+Você pode, claro, definir os caminhos dentro do código-fonte, porém isto torna o compilador menos flexível.
+
+## Problemas 
+
+Caso você tenha algum problema durante a realização deste trabalho que você acredite que é um bug, entre em contato com 
+o professor no e-mail henry.cagnini@gmail.com.
+

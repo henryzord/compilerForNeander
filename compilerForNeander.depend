@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1671012741 source:d:\henry\projects\compilerforneander\resources\input.c
+	<stdio.h>
+
+1671019009 source:d:\henry\projects\compilerforneander\src\main.c
+	<stdio.h>
+	<stdlib.h>
+	"utils.h"
+	<string.h>
+
+1671020783 d:\henry\projects\compilerforneander\include\utils.h
+
+1671020470 source:d:\henry\projects\compilerforneander\src\utils.c
+	<stdio.h>
+	<stdlib.h>
+	"utils.h"
+

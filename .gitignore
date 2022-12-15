@@ -51,6 +51,12 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+# clion
 cmake-build-debug/
 .idea/
+# visual code
 .vs/
+# codeblocks
+bin/
+obj/
+compilerForNeander.layout

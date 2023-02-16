@@ -1,8 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
+#include <stdbool.h>
 
 #include <string.h>  // você vai precisar desta biblioteca para processar as strings
+
+#define SIZE_TEMP_BUFF 500
+#define SIZE_VAR_BUFF 50
+#define START_MEM_POS 80
 
 /**
  * Compila uma string escrita em C para Neander-X.
@@ -11,23 +16,70 @@
  * @return Uma string com o código-fonte em Neander-X.
  */
 char *compile(char *file_contents) {
-    // TODO desenvolva seu código aqui
-    char *code = (char*)malloc(sizeof(char) * 82);
-    code = strcpy(code,
-        "A EQU 80H\n"
-        "B EQU 81H\n"
-        "C EQU 82H\n"
-        "LDI 1\n"
-        "STA A\n"
-        "LDI 2\n"
-        "STA B\n"
-        "LDA A\n"
-        "ADD B\n"
-        "STA C\n"
-        "OUT 0\n"
-        "HLT\n"
-    );  // essa string possui 82 caracteres, por isso alocamos 82 caracteres com malloc
-    // TODO desenvolva seu código aqui
+    char *code = (char*)malloc(sizeof(char) * 500000);  // 500 mil caracteres
+    char *runner = code;
+    int last_pos = START_MEM_POS;
+
+    char temp[SIZE_TEMP_BUFF];
+    char temp_pos[SIZE_VAR_BUFF];
+
+    char *line = NULL;
+    char *remaining_lines = NULL;
+    line = strtok_s(file_contents, "\n", &remaining_lines);
+    while(line != NULL) {
+        if(
+            (strstr(line, "#include") != NULL) ||
+            (strstr(line, "int main(") != NULL) ||
+            (strstr(line, "int main (") != NULL) ||
+            (strlen(line) == 0)
+        ) {
+            // does nothing
+        } else if(strstr(line, "return 0") != NULL) {
+            strcpy(runner, "HLT\n");
+            break;
+        } else {
+            char *word = NULL;
+            char *remaining_words = NULL;
+            bool capturing_name = false;
+            bool capturing_value = false;
+            char buffer_name[SIZE_VAR_BUFF];
+            char buffer_value[SIZE_VAR_BUFF];
+
+            word = strtok_s(line, " ;", &remaining_words);
+            while(word != NULL) {
+                if(capturing_name) {
+                    strcpy(&buffer_name[0], word);
+
+                    snprintf(temp_pos, sizeof temp_pos, "%dH", last_pos);
+                    last_pos += 1;
+
+                    snprintf(temp, sizeof temp, "%s EQU %s\n", buffer_name, temp_pos, buffer_value);
+                    strcpy(runner, temp);
+                    runner += strlen(temp);
+                    capturing_name = false;
+                } else if(capturing_value) {
+                    strcpy(&buffer_value[0], word);
+                    snprintf(temp, sizeof temp, "LDI %s\nSTA %s\n", buffer_value, buffer_name);
+                    strcpy(runner, temp);
+                    runner += strlen(temp);
+                    capturing_value = false;
+                } else if(strcmp(word, "int") == 0) {
+                    capturing_name = true;
+                } else if(strcmp(word, "=") == 0) {
+                    capturing_value = true;
+                } else if(strcmp(word, "//") == 0) {
+                    break;  // ignores rest of line
+                }
+                else {
+                    // does nothing
+                }
+
+
+                word = strtok_s(NULL, " ;", &remaining_words);
+            }
+        }
+        line = strtok_s(NULL, "\n", &remaining_lines);
+    }
     return code;
 }
 
